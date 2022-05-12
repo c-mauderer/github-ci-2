@@ -1,18 +1,30 @@
 name: CI-2
 
 on:
-  # Only manually for the moment
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      use_artifact:
+        type: boolean
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Download artifact
+        uses: action/download-artifact@v3
+        with:
+          name: my-log
       - uses: actions/checkout@v3
-      - name: Run a one-line script
-        run: echo Hello, world!
-      - name: Run a multi-line script
+      - name: Show artifact
+        run: cat log
+      - name: Append to artifact
         run: |
-          ls
-          pwd
+          echo "Hello from 2" >> log
+          git log | head -20 >> log
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-log2
+          path: log

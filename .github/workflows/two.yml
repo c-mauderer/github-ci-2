@@ -2,9 +2,13 @@ name: CI-2
 
 on:
   workflow_dispatch:
+    inputs:
+      called_from_ci1:
+        type: boolean
+        default: False
   workflow_call:
     inputs:
-      use_artifact:
+      called_from_ci1:
         type: boolean
 
 jobs:
@@ -16,8 +20,19 @@ jobs:
         with:
           repository: c-mauderer/github-ci-2
       - name: Download artifact
+        if: ${{ inputs.called_from_ci1 }}
         uses: actions/download-artifact@v3
         with:
+          name: my-log
+          path: path/to/artifact
+      - name: Download artifact
+        if: ! ${{ inputs.called_from_ci1 }}
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          repo: c-mauderer/github-ci-1
+          branch: main
+          workflow: one.yml
+          workflow_conclusion: success
           name: my-log
           path: path/to/artifact
       - name: Show artifact

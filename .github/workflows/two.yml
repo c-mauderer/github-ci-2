@@ -5,7 +5,7 @@ on:
     inputs:
       called_from_ci1:
         type: boolean
-        default: False
+        default: false
   workflow_call:
     inputs:
       called_from_ci1:
@@ -20,13 +20,13 @@ jobs:
         with:
           repository: c-mauderer/github-ci-2
       - name: Download artifact
-        if: ${{ inputs.called_from_ci1 }} == True
+        if: inputs.called_from_ci1 == true
         uses: actions/download-artifact@v3
         with:
           name: my-log
           path: path/to/artifact
-      - name: Download artifact
-        if: ${{ inputs.called_from_ci1 }} == False
+      - name: Download artifact from other
+        if: inputs.called_from_ci1 == false
         uses: dawidd6/action-download-artifact@v2
         with:
           repo: c-mauderer/github-ci-1

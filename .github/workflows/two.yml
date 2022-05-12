@@ -18,9 +18,10 @@ jobs:
           name: my-log
       - uses: actions/checkout@v3
       - name: Show artifact
-        run: pwd
-        run: ls
-        run: cat log
+        run: |
+          pwd
+          ls
+          cat log
       - name: Append to artifact
         run: |
           echo "Hello from 2" >> log

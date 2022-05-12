@@ -18,6 +18,8 @@ jobs:
           name: my-log
       - uses: actions/checkout@v3
       - name: Show artifact
+        run: pwd
+        run: ls
         run: cat log
       - name: Append to artifact
         run: |

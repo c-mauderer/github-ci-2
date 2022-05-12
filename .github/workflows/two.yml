@@ -12,16 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: c-mauderer/github-ci-2
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
           name: my-log
-      - uses: actions/checkout@v3
+          path: path/to/artifact
       - name: Show artifact
         run: |
           pwd
-          ls
-          cat log
+          ls -R
+          cat path/to/artifact/log
       - name: Append to artifact
         run: |
           echo "Hello from 2" >> log

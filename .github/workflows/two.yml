@@ -27,6 +27,7 @@ jobs:
           cat path/to/artifact/log
       - name: Append to artifact
         run: |
+          mv path/to/artifact/log .
           echo "Hello from 2" >> log
           git log | head -20 >> log
       - name: Archive artifacts

@@ -22,11 +22,10 @@ jobs:
           name: log-artifact
   call_work:
     needs: build
-    steps:
-      - uses: c-mauderer/github-ci-2/.github/workflows/work.yml@main
-        with:
-          arch: xxx
-          repo: ${{ github.repository }}
+    uses: c-mauderer/github-ci-2/.github/workflows/work.yml@main
+    with:
+      arch: xxx
+      repo: ${{ github.repository }}
   archive_work:
     needs: call_work
     runs-on: ubuntu-latest

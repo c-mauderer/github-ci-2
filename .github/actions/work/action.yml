@@ -23,7 +23,7 @@ runs:
       shell: bash
       run: |
         echo "Hello from action of 2 for ${{ inputs.arch }}" >> log
-        git -C ${{ inputs.sources-two }} log | head -20 >> ../log
+        git -C ${{ inputs.sources-two }} log | head -20 >> log
     - name: Archive log
       uses: actions/upload-artifact@v3
       with:

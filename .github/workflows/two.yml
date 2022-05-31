@@ -7,6 +7,12 @@ on:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        target:
+          - aarch64
+          - arm
+          - bfin
     runs-on: ubuntu-latest
     steps:
       - name: Checkout self
@@ -20,9 +26,9 @@ jobs:
           branch: main
           workflow: one.yml
           workflow_conclusion: success
-          name: log-artifact
+          name: log-artifact-${{ matrix.target }}
       - name: Run custom work action
         uses: ./two/.github/actions/work
         with:
-          arch: xxx
+          arch: ${{ matrix.target }}
           sources-two: two

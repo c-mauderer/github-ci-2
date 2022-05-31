@@ -27,5 +27,5 @@ runs:
     - name: Archive log
       uses: actions/upload-artifact@v3
       with:
-        name: log-artifact2
+        name: log-artifact2-${{ inputs.arch }}
         path: log

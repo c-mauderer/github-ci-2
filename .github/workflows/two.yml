@@ -2,51 +2,40 @@ name: CI-2
 
 on:
   workflow_dispatch:
-    inputs:
-      called_from_ci1:
-        type: boolean
-        default: false
-  workflow_call:
-    inputs:
-      called_from_ci1:
-        type: boolean
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        id: cache
         with:
-          repository: c-mauderer/github-ci-2
-      - name: Download artifact
-        if: inputs.called_from_ci1 == true
-        uses: actions/download-artifact@v3
-        with:
-          name: my-log
-          path: path/to/artifact
-      - name: Download artifact from other
-        if: inputs.called_from_ci1 == false
+          path: log
+          key: ${{ runner.os }}-xxx
+      - name: Download artifact from ci1
         uses: dawidd6/action-download-artifact@v2
         with:
           repo: c-mauderer/github-ci-1
           branch: main
           workflow: one.yml
           workflow_conclusion: success
-          name: my-log
-          path: path/to/artifact
-      - name: Show artifact
-        run: |
-          pwd
-          ls -R
-          cat path/to/artifact/log
-      - name: Append to artifact
-        run: |
-          mv path/to/artifact/log .
-          echo "Hello from 2" >> log
-          git log | head -20 >> log
+          name: log-artifact
+  call_work:
+    needs: build
+    uses: c-mauderer/github-ci-2/.github/workflows/work.yml@main
+    with:
+      arch: xxx
+  archive_work:
+    needs: call_work
+    steps:
+      - uses: actions/cache@v3
+        id: cache
+        with:
+          path: log
+          key: ${{ runner.os }}-xxx
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: my-log2
+          name: log-artifact2
           path: log

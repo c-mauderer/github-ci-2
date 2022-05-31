@@ -43,3 +43,8 @@ jobs:
           cd two
           git log | head -20 >> ../log
           cd ..
+      - name: Archive log
+        uses: actions/upload-artifact@v3
+        with:
+          name: log-artifact2
+          path: log

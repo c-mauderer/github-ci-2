@@ -7,11 +7,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/cache@v3
-        id: cache
+      - name: Checkout self
+        uses: actions/checkout@v3
         with:
-          path: log
-          key: ${{ github.sha }}-${{ runner.os }}-xxx
+          path: two
       - name: Download artifact from ci1
         uses: dawidd6/action-download-artifact@v2
         with:
@@ -20,10 +19,8 @@ jobs:
           workflow: one.yml
           workflow_conclusion: success
           name: log-artifact
-  call_work:
-    needs: build
-    uses: c-mauderer/github-ci-2/.github/workflows/work.yml@main
-    with:
-      arch: xxx
-      action-repo: ${{ github.repository }}
-      cache-hash: ${{ github.sha }}
+      - name: Run custom work action
+        uses: ./.github/actions/work
+        with:
+          arch: xxx
+          sources-two: two

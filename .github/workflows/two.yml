@@ -6,7 +6,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/cache@v3
         id: cache
@@ -30,6 +29,7 @@ jobs:
           repo: ${{ github.repository }}
   archive_work:
     needs: call_work
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/cache@v3
         id: cache

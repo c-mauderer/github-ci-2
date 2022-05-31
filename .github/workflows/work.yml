@@ -5,8 +5,10 @@ on:
     inputs:
       arch:
         type: string
+        required: true
       action-repo:
         type: string
+        required: true
 
 jobs:
   build:

@@ -9,7 +9,7 @@ on:
       action-repo:
         type: string
         required: true
-      cache-key:
+      cache-hash:
         type: string
         required: true
 
@@ -21,7 +21,7 @@ jobs:
         id: cache
         with:
           path: log
-          key: ${{ inputs.cache-key }}
+          key: ${{ inputs.cache-hash }}-${{ runner.os }}-${{ inputs.arch }}
       - name: Fail if no cache
         if: steps.cache.outputs.cache-hit != 'true'
         run:

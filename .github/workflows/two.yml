@@ -26,4 +26,4 @@ jobs:
     with:
       arch: xxx
       action-repo: ${{ github.repository }}
-      cache-key: ${{ github.sha }}-${{ runner.os }}-xxx
+      cache-hash: ${{ github.sha }}

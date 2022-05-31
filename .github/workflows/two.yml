@@ -27,6 +27,7 @@ jobs:
       - uses: c-mauderer/github-ci-2/.github/workflows/work.yml@main
         with:
           arch: xxx
+          repo: ${{ github.repository }}
   archive_work:
     needs: call_work
     steps:

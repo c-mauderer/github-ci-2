@@ -11,7 +11,7 @@ jobs:
         id: cache
         with:
           path: log
-          key: ${{ runner.os }}-xxx
+          key: ${{ github.sha }}-${{ runner.os }}-xxx
       - name: Download artifact from ci1
         uses: dawidd6/action-download-artifact@v2
         with:
@@ -26,3 +26,4 @@ jobs:
     with:
       arch: xxx
       action-repo: ${{ github.repository }}
+      cache-key: ${{ github.sha }}-${{ runner.os }}-xxx

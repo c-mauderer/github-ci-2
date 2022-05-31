@@ -8,9 +8,6 @@ inputs:
   sources-two:
     type: string
     required: true
-  log-path:
-    type: string
-    required: true
 
 runs:
   using: "composite"
@@ -23,7 +20,7 @@ runs:
         cat log
     - name: Append to artifact
       run: |
-        echo "Hello from action of 2" >> log
+        echo "Hello from action of 2 for ${{ inputs.arch }}" >> log
         git -C ${{ inputs.sources-two }} log | head -20 >> ../log
     - name: Archive log
       uses: actions/upload-artifact@v3

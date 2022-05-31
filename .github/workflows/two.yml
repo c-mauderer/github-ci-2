@@ -20,7 +20,7 @@ jobs:
           workflow_conclusion: success
           name: log-artifact
       - name: Run custom work action
-        uses: ./.github/actions/work
+        uses: ./two/.github/actions/work
         with:
           arch: xxx
           sources-two: two

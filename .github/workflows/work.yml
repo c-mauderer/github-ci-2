@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/cache@v3
         id: cache
@@ -18,7 +17,7 @@ jobs:
           key: ${{ runner.os }}-${{ inputs.arch }}
       - name: Fail if no cache
         if: steps.cache.outputs.cache-hit != 'true'
-        steps:
+        run:
           echo "MISSING CACHE!"
           false
       - name: Show artifact

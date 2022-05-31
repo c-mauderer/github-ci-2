@@ -13,12 +13,14 @@ runs:
   using: "composite"
   steps:
     - name: Show some info
+      shell: bash
       run: |
         pwd
         ls -R
         ls -R ${{ inputs.sources-two }}
         cat log
     - name: Append to artifact
+      shell: bash
       run: |
         echo "Hello from action of 2 for ${{ inputs.arch }}" >> log
         git -C ${{ inputs.sources-two }} log | head -20 >> ../log
